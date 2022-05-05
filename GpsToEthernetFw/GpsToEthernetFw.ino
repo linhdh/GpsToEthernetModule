@@ -23,6 +23,7 @@
 #include <SPI.h>
 #include <SD.h>
 
+#include <SDConfig.h>
 #include <SoftwareSerial.h>
 #include <TinyGPS++.h>
 
@@ -31,8 +32,7 @@
 // Adafruit SD shields and modules: pin 10
 // Sparkfun SD shield: pin 8
 // MKRZero SD: SDCARD_SS_PIN
-const int chipSelect = 8;
-const String fileName = "ip.txt";
+const int sdSelect = 4;
 
 SoftwareSerial gpsSerial(2, 3); //rx, tx 
 
@@ -41,12 +41,12 @@ void readSDCardInfo() {
   Sd2Card card;
   SdVolume volume;
   SdFile root;  
-
+  
   Serial.print("\nInitializing SD card...");
 
   // we'll use the initialization code from the utility libraries
   // since we're just testing if the card is working!
-  if (!card.init(SPI_HALF_SPEED, chipSelect)) {
+  if (!card.init(SPI_HALF_SPEED, sdSelect)) {
     Serial.println("initialization failed. Things to check:");
     Serial.println("* is a card inserted?");
     Serial.println("* is your wiring correct?");
@@ -112,6 +112,72 @@ void readSDCardInfo() {
   root.close();
 }
 
+boolean readConfiguration() {
+  /*
+   * Length of the longest line expected in the config file.
+   * The larger this number, the more memory is used
+   * to read the file.
+   * You probably won't need to change this number.
+   */
+  int maxLineLength = 127;
+  SDConfig cfg;
+  char fileName[] = "setup.cfg";
+  const char* CONFIG_HMAC = "HMAC";  
+  const char* CONFIG_IP = "IP";
+  const char* CONFIG_GATEWAY = "GATEWAY";
+  const char* CONFIG_SUBNET = "SUBNET";
+  const char* CONFIG_SERVER_IP = "SERVER_IP";
+  const char* CONFIG_SERVER_PORT = "SERVER_PORT";
+
+  // Setup the SD card 
+  Serial.println("Calling SD.begin()...");
+  if (!SD.begin(sdSelect)) {
+    Serial.println("SD.begin() failed. Check: ");
+    Serial.println("  card insertion,");
+    Serial.println("  SD shield I/O pins and chip select,");
+    Serial.println("  card formatting.");
+    return;
+  }
+  Serial.println("...succeeded.");
+  // Read our configuration from the SD card file.
+  
+  // Open the configuration file.
+  if (!cfg.begin(fileName, maxLineLength)) {
+    Serial.print("Failed to open configuration file: ");
+    Serial.println(fileName);
+    return false;
+  }
+  
+  // Read each setting from the file.
+  while (cfg.readNextSetting()) {
+    if (cfg.nameIs(CONFIG_HMAC)) {
+      String hmacStr = cfg.getValue();
+      Serial.print("HMAC: ");
+      Serial.println(hmacStr);      
+    } else if (cfg.nameIs(CONFIG_IP)) {
+      IPAddress ip = cfg.getIPAddress();
+      Serial.println(ip);
+    } else if (cfg.nameIs(CONFIG_GATEWAY)) {
+      IPAddress gateway = cfg.getIPAddress();
+      Serial.println(gateway);
+    } else if (cfg.nameIs(CONFIG_SUBNET)) {
+      IPAddress subnet = cfg.getIPAddress();
+      Serial.println(subnet);
+    } else if (cfg.nameIs(CONFIG_SERVER_IP)) {
+      IPAddress serverip = cfg.getIPAddress();
+      Serial.println(serverip);
+    } else if (cfg.nameIs(CONFIG_SERVER_PORT)) {
+      int server_port = cfg.getIntValue();
+      Serial.println(server_port);
+    } else {
+      Serial.print("Unknown name in config: ");
+      Serial.println(cfg.getName());
+    }
+  }
+  cfg.end();
+  return true;
+}
+
 void setup() {
   gpsSerial.begin(9600);
   // Open serial communications and wait for port to open:
@@ -122,39 +188,11 @@ void setup() {
 
   readSDCardInfo();
 
-  Serial.print("Initializing SD card...");
+  if (readConfiguration() == false) {
+    return;
+  }
 
-  if (!SD.begin(8)) {
-    Serial.println("initialization failed!");
-    while (1);
-  }
-  Serial.println("initialization done.");
-  
-  // open the file. note that only one file can be open at a time,
-  // so you have to close this one before opening another.
-  File dataFile = SD.open(fileName);
-
-  // if the file is available, write to it:
-  if (dataFile) {
-    // read from the file until there's nothing else in it:
-    int fSize = dataFile.size();
-    Serial.print("File size: ");
-    Serial.println(fSize);
-    char buffer[fSize+1];
-    dataFile.read(buffer, fSize);
-    buffer[fSize] = '\0';
-    Serial.println(buffer);
-    //for (int i = 0; i < fSize; i++) {
-    //  Serial.write(buffer[i]);
-    //}
-        
-    // close the file:
-    dataFile.close();    
-  }
-  // if the file isn't open, pop up an error:
-  else {
-    Serial.println("error opening " + fileName);
-  }
+  //Init Ethernet
 }
 
 void loop(void) {
