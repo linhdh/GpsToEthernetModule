@@ -1,5 +1,5 @@
 # GpsToEthernetModule  
-This is the firware for Arduino Uno. At starting up, It will get configuration from Micro SDcard. It gets GPS data from Ublox Neo GPS 6M module then send them through Ethernet to specified Server.  
+This is the firware for Arduino Uno. At starting up, It reads configuration from Micro SDcard then It gets GPS data from Ublox Neo GPS 6M module and sends them through Ethernet to specified Server.  
 
 ## Hardware  
 Arduino Uno 328p  
