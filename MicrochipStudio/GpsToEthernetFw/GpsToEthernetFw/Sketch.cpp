@@ -1,3 +1,8 @@
+﻿/*Begining of Auto generated code by Atmel studio */
+#include <Arduino.h>
+
+/*End of auto generated code by Atmel studio */
+
 /*
   SD card test
 
@@ -25,6 +30,12 @@
 
 #include <SoftwareSerial.h>
 #include <TinyGPS++.h>
+//Beginning of Auto generated function prototypes by Atmel Studio
+void readSDCardInfo();
+void loop(void );
+//End of Auto generated function prototypes by Atmel Studio
+
+
 
 // change this to match your SD shield or module;
 // Arduino Ethernet shield: pin 4
