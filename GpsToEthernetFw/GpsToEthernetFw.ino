@@ -45,7 +45,6 @@ EthernetClient client;
 
 SoftwareSerial gpsSerial(2, 3); //rx, tx 
 
-
 boolean readConfiguration() {
   /*
    * Length of the longest line expected in the config file.
@@ -92,18 +91,23 @@ boolean readConfiguration() {
       Serial.println(hmacStr);      
     } else if (cfg.nameIs(CONFIG_IP)) {
       ip = cfg.getIPAddress();
+      Serial.print("IP: ");
       Serial.println(ip);
     } else if (cfg.nameIs(CONFIG_GATEWAY)) {
       gateway = cfg.getIPAddress();
+      Serial.print("GATEWAY: ");
       Serial.println(gateway);
     } else if (cfg.nameIs(CONFIG_SUBNET)) {
       subnet = cfg.getIPAddress();
+      Serial.print("SUBNET: ");
       Serial.println(subnet);
     } else if (cfg.nameIs(CONFIG_SERVER_IP)) {
       serverIP = cfg.getIPAddress();
+      Serial.print("SERVER IP: ");
       Serial.println(serverIP);
     } else if (cfg.nameIs(CONFIG_SERVER_PORT)) {
       int serverPort = cfg.getIntValue();
+      Serial.print("SERVER PORT: ");
       Serial.println(serverPort);
     } else {
       Serial.print("Unknown name in config: ");
