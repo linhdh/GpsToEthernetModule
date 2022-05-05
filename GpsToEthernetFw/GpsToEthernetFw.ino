@@ -22,17 +22,26 @@
 // include the SD library:
 #include <SPI.h>
 #include <SD.h>
-
 #include <SDConfig.h>
 #include <SoftwareSerial.h>
-#include <TinyGPS++.h>
+//#include <TinyGPS++.h>
+#include <Ethernet.h>
 
 // change this to match your SD shield or module;
 // Arduino Ethernet shield: pin 4
 // Adafruit SD shields and modules: pin 10
 // Sparkfun SD shield: pin 8
 // MKRZero SD: SDCARD_SS_PIN
-const int sdSelect = 4;
+const int SD_SELECT_PIN = 4;
+const int ETHERNET_SELECT_PIN = 10;
+
+IPAddress ip, gateway, subnet, serverIP;
+int serverPort;
+byte mac[] = {
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED
+};
+
+EthernetClient client;
 
 SoftwareSerial gpsSerial(2, 3); //rx, tx 
 
@@ -57,7 +66,7 @@ boolean readConfiguration() {
   // Setup the SD card 
   Serial.println("Calling SD.begin()...");
   
-  if (!SD.begin(sdSelect)) {
+  if (!SD.begin(SD_SELECT_PIN)) {
     Serial.println("SD.begin() failed. Check: ");
     Serial.println("  card insertion,");
     Serial.println("  SD shield I/O pins and chip select,");
@@ -82,20 +91,20 @@ boolean readConfiguration() {
       Serial.print("HMAC: ");
       Serial.println(hmacStr);      
     } else if (cfg.nameIs(CONFIG_IP)) {
-      IPAddress ip = cfg.getIPAddress();
+      ip = cfg.getIPAddress();
       Serial.println(ip);
     } else if (cfg.nameIs(CONFIG_GATEWAY)) {
-      IPAddress gateway = cfg.getIPAddress();
+      gateway = cfg.getIPAddress();
       Serial.println(gateway);
     } else if (cfg.nameIs(CONFIG_SUBNET)) {
-      IPAddress subnet = cfg.getIPAddress();
+      subnet = cfg.getIPAddress();
       Serial.println(subnet);
     } else if (cfg.nameIs(CONFIG_SERVER_IP)) {
-      IPAddress serverip = cfg.getIPAddress();
-      Serial.println(serverip);
+      serverIP = cfg.getIPAddress();
+      Serial.println(serverIP);
     } else if (cfg.nameIs(CONFIG_SERVER_PORT)) {
-      int server_port = cfg.getIntValue();
-      Serial.println(server_port);
+      int serverPort = cfg.getIntValue();
+      Serial.println(serverPort);
     } else {
       Serial.print("Unknown name in config: ");
       Serial.println(cfg.getName());
@@ -118,11 +127,40 @@ void setup() {
   }
 
   //Init Ethernet
+  Ethernet.init(ETHERNET_SELECT_PIN);
+  Ethernet.begin(mac, ip, gateway, subnet);
+
+  // Check for Ethernet hardware present
+  if (Ethernet.hardwareStatus() == EthernetNoHardware) {
+    Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
+    while (true) {
+      delay(1); // do nothing, no point running without Ethernet hardware
+    }
+  }
+  if (Ethernet.linkStatus() == LinkOFF) {
+    Serial.println("Ethernet cable is not connected.");
+  }
 }
 
 void loop(void) {
-  while(gpsSerial.available() > 0) {
-    Serial.write(gpsSerial.read());
+  while (!client.connected()) {
+    if (client.connect(serverIP, serverPort)) {
+      Serial.println("connected");
+      break;
+    } else {
+      Serial.println("connection failed");
+      delay(1000);
+    }
   }
-  delay(10);
+
+  while(gpsSerial.available() > 0) {
+    if (client.connected()) {
+      client.print(gpsSerial.read());
+    } else {
+      client.stop();
+      break;
+    }
+  }
+  
+  delay(1000);
 }

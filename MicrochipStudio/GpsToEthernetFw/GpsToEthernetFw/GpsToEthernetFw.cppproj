@@ -70,10 +70,12 @@
     <ListValues>
       <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\include\</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\core</Value>
+      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\Ethernet</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SD</Value>
+      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SDConfig</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SoftwareSerial</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SPI</Value>
-      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\TinyGPSPlus</Value>
+      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\Ethernet\utility</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SD\utility</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\variants\standard</Value>
     </ListValues>
@@ -103,10 +105,12 @@
     <ListValues>
       <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\include\</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\core</Value>
+      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\Ethernet</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SD</Value>
+      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SDConfig</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SoftwareSerial</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SPI</Value>
-      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\TinyGPSPlus</Value>
+      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\Ethernet\utility</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SD\utility</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\variants\standard</Value>
     </ListValues>
@@ -160,10 +164,12 @@
     <ListValues>
       <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\include\</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\core</Value>
+      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\Ethernet</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SD</Value>
+      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SDConfig</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SoftwareSerial</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SPI</Value>
-      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\TinyGPSPlus</Value>
+      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\Ethernet\utility</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SD\utility</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\variants\standard</Value>
     </ListValues>
@@ -193,10 +199,12 @@
     <ListValues>
       <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\include\</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\core</Value>
+      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\Ethernet</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SD</Value>
+      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SDConfig</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SoftwareSerial</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SPI</Value>
-      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\TinyGPSPlus</Value>
+      <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\Ethernet\utility</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\libraries\SD\utility</Value>
       <Value>%24(ProjectDir)\..\ArduinoCore\include\variants\standard</Value>
     </ListValues>
@@ -233,7 +241,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ArduinoCore\ArduinoCore.cppproj">
       <Name>ArduinoCore</Name>
-      <Project>82e0d2e5-391e-4162-8da7-48513d5d1835</Project>
+      <Project>09097e7f-364e-4528-8a36-31c38e527575</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>

@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.CPP</ToolchainName>
-    <ProjectGuid>82e0d2e5-391e-4162-8da7-48513d5d1835</ProjectGuid>
+    <ProjectGuid>09097e7f-364e-4528-8a36-31c38e527575</ProjectGuid>
     <avrdevice>atmega328p</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>StaticLibrary</OutputType>
@@ -72,8 +72,10 @@
       <Value>..\include\libraries\SPI</Value>
       <Value>..\include\libraries\SD</Value>
       <Value>..\include\libraries\SD\utility</Value>
+      <Value>..\include\libraries\SDConfig</Value>
+      <Value>..\include\libraries\Ethernet</Value>
+      <Value>..\include\libraries\Ethernet\utility</Value>
       <Value>..\include\libraries\SoftwareSerial</Value>
-      <Value>..\include\libraries\TinyGPSPlus</Value>
       <Value>..\include\core</Value>
       <Value>..\include\variants\standard</Value>
     </ListValues>
@@ -105,8 +107,10 @@
       <Value>..\include\libraries\SPI</Value>
       <Value>..\include\libraries\SD</Value>
       <Value>..\include\libraries\SD\utility</Value>
+      <Value>..\include\libraries\SDConfig</Value>
+      <Value>..\include\libraries\Ethernet</Value>
+      <Value>..\include\libraries\Ethernet\utility</Value>
       <Value>..\include\libraries\SoftwareSerial</Value>
-      <Value>..\include\libraries\TinyGPSPlus</Value>
       <Value>..\include\core</Value>
       <Value>..\include\variants\standard</Value>
     </ListValues>
@@ -162,8 +166,10 @@
       <Value>..\include\libraries\SPI</Value>
       <Value>..\include\libraries\SD</Value>
       <Value>..\include\libraries\SD\utility</Value>
+      <Value>..\include\libraries\SDConfig</Value>
+      <Value>..\include\libraries\Ethernet</Value>
+      <Value>..\include\libraries\Ethernet\utility</Value>
       <Value>..\include\libraries\SoftwareSerial</Value>
-      <Value>..\include\libraries\TinyGPSPlus</Value>
       <Value>..\include\core</Value>
       <Value>..\include\variants\standard</Value>
     </ListValues>
@@ -195,8 +201,10 @@
       <Value>..\include\libraries\SPI</Value>
       <Value>..\include\libraries\SD</Value>
       <Value>..\include\libraries\SD\utility</Value>
+      <Value>..\include\libraries\SDConfig</Value>
+      <Value>..\include\libraries\Ethernet</Value>
+      <Value>..\include\libraries\Ethernet\utility</Value>
       <Value>..\include\libraries\SoftwareSerial</Value>
-      <Value>..\include\libraries\TinyGPSPlus</Value>
       <Value>..\include\core</Value>
       <Value>..\include\variants\standard</Value>
     </ListValues>
@@ -281,6 +289,30 @@
     <Compile Include="include\core\WString.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="include\libraries\Ethernet\Dhcp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\libraries\Ethernet\Dns.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\libraries\Ethernet\Ethernet.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\libraries\Ethernet\EthernetClient.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\libraries\Ethernet\EthernetServer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\libraries\Ethernet\EthernetUdp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\libraries\Ethernet\utility\w5100.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\libraries\SDConfig\SDConfig.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="include\libraries\SD\SD.h">
       <SubType>compile</SubType>
     </Compile>
@@ -309,12 +341,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="include\libraries\SPI\SPI.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="include\libraries\TinyGPSPlus\TinyGPS++.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="include\libraries\TinyGPSPlus\TinyGPSPlus.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="include\variants\standard\pins_arduino.h">
@@ -395,6 +421,33 @@
     <Compile Include="src\core\WString.cpp">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\libraries\Ethernet\Dhcp.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\libraries\Ethernet\Dns.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\libraries\Ethernet\Ethernet.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\libraries\Ethernet\EthernetClient.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\libraries\Ethernet\EthernetServer.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\libraries\Ethernet\EthernetUdp.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\libraries\Ethernet\socket.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\libraries\Ethernet\utility\w5100.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\libraries\SDConfig\SDConfig.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\libraries\SD\File.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -416,30 +469,31 @@
     <Compile Include="src\libraries\SPI\SPI.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\libraries\TinyGPSPlus\TinyGPS++.cpp">
-      <SubType>compile</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="include\" />
     <Folder Include="include\core\" />
     <Folder Include="include\libraries\" />
+    <Folder Include="include\libraries\Ethernet\" />
+    <Folder Include="include\libraries\Ethernet\utility\" />
+    <Folder Include="include\libraries\SDConfig\" />
     <Folder Include="include\libraries\SD\" />
     <Folder Include="include\libraries\SD\utility\" />
     <Folder Include="include\libraries\SoftwareSerial\" />
     <Folder Include="include\libraries\SPI\" />
-    <Folder Include="include\libraries\TinyGPSPlus\" />
     <Folder Include="include\variants\" />
     <Folder Include="include\variants\standard\" />
     <Folder Include="src\" />
     <Folder Include="src\core\" />
     <Folder Include="src\core\PreprocessingAssembly\" />
     <Folder Include="src\libraries\" />
+    <Folder Include="src\libraries\Ethernet\" />
+    <Folder Include="src\libraries\Ethernet\utility\" />
+    <Folder Include="src\libraries\SDConfig\" />
     <Folder Include="src\libraries\SD\" />
     <Folder Include="src\libraries\SD\utility\" />
     <Folder Include="src\libraries\SoftwareSerial\" />
     <Folder Include="src\libraries\SPI\" />
-    <Folder Include="src\libraries\TinyGPSPlus\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
