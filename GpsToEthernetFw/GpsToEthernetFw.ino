@@ -146,6 +146,12 @@ void setup() {
   }
 }
 
+void printToSerial(void) {
+  while(gpsSerial.available() > 0) {
+    Serial.print(gpsSerial.read());
+  }
+}
+
 void loop(void) {
   while (!client.connected()) {
     if (client.connect(serverIP, serverPort)) {
@@ -153,18 +159,19 @@ void loop(void) {
       break;
     } else {
       Serial.println("connection failed");
+      printToSerial();
       delay(1000);
     }
   }
 
-  while(gpsSerial.available() > 0) {
-    if (client.connected()) {
+  if (client.connected()) {
+    while(gpsSerial.available() > 0) {
       client.print(gpsSerial.read());
-    } else {
-      client.stop();
-      break;
-    }
+    }    
   }
-  
+  else {
+    client.stop();
+    printToSerial();
+  } 
   delay(1000);
 }
