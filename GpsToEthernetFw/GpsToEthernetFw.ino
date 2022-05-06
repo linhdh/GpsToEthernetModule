@@ -106,7 +106,7 @@ boolean readConfiguration() {
       Serial.print("SERVER IP: ");
       Serial.println(serverIP);
     } else if (cfg.nameIs(CONFIG_SERVER_PORT)) {
-      int serverPort = cfg.getIntValue();
+      serverPort = cfg.getIntValue();
       Serial.print("SERVER PORT: ");
       Serial.println(serverPort);
     } else {
