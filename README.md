@@ -2,7 +2,7 @@
 This is the firware for Arduino Uno. At starting up, It reads configuration from Micro SDcard then It gets GPS data from Ublox Neo GPS 6M module and sends them through Ethernet to specified Server.  
 
 ## Hardware  
-Arduino Uno 328p  
+Arduino Uno 328p or Arduino Mega 2560
 Ublox Neo 6M (gps module)  
 W5100 Ethernet shield  
 Micro sd card for storing configuration file. 
