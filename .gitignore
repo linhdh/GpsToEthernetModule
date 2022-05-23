@@ -348,3 +348,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+
+#Notepad++ backup files:
+*.ino.bak
+.gitignore.bak

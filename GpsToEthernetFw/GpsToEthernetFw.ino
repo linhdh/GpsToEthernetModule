@@ -152,6 +152,11 @@ void printToSerial(void) {
   }
 }
 
+char buffer[512];
+char *bufferPtr = buffer;
+#define CARRIAGE_RETURN '\r'
+#define LINE_FEED '\n'
+
 void loop(void) {
   while (!client.connected()) {
     if (client.connect(serverIP, serverPort)) {
@@ -166,8 +171,17 @@ void loop(void) {
 
   if (client.connected()) {
     while(gpsSerial.available() > 0) {
-      client.print(gpsSerial.read());
-    }    
+      //client.write(gpsSerial.read());
+	  char curr = gpsSerial.read();
+	  if (curr == LINE_FEED) {
+		*(++bufferPtr) = LINE_FEED;
+		client.write(buffer, bufferPtr - buffer + 1);
+		bufferPtr = buffer;
+	  }
+	  else {
+		*(++bufferPtr) = LINE_FEED;		  
+	  }
+    }
   }
   else {
     client.stop();
