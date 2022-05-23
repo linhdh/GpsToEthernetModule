@@ -174,12 +174,14 @@ void loop(void) {
       //client.write(gpsSerial.read());
 	  char curr = gpsSerial.read();
 	  if (curr == LINE_FEED) {
-		*(++bufferPtr) = LINE_FEED;
+		*bufferPtr = LINE_FEED;
+		bufferPtr++;
 		client.write(buffer, bufferPtr - buffer + 1);
 		bufferPtr = buffer;
 	  }
 	  else {
-		*(++bufferPtr) = LINE_FEED;		  
+		*bufferPtr = curr;
+		bufferPtr++;
 	  }
     }
   }
